@@ -1,0 +1,28 @@
+colour
+pycountry
+ccy
+yfinance
+babel
+cryptography
+bokeh
+numpy
+mpld3
+matplotlib
+pandas
+flask
+flask_pymongo
+flask-simple-geoip
+gunicorn
+dnspython
+Jinja2 >=2.7
+packaging >=16.8
+pillow >=4.0
+python-dateutil >=2.1
+PyYAML >=3.10
+six >=1.5.2
+tornado >=4.3
+requests
+pymongo
+beautifulsoup4
+APScheduler>=3.0.0
+lxml
