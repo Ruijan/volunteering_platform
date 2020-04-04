@@ -132,6 +132,11 @@ def dashboard():
     else:
         return redirect(url_for("login"))
 
+@app.route('/map', methods=['GET'])
+def map():    
+    global mongo
+    return render_template("map.html")
+
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run()
