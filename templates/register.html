@@ -42,24 +42,30 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intlTelInput.css') }}">
     <script>
         var skills = [];
-
+        
     </script>
 </head>
 
 <body>
     <form class="login100-form validate-form" target="_self" method="post">
-
+        <input type="text" value="Volunteer" name="member_type" id="member_type" hidden>
         <div class="limiter">
             <div class="container-login100">
+                
                 <div class="wrap-login100" style="display: block; padding-top: 35px;" id="select_user">
+                    
                     {% if error_signup %}
                     <div class="error_login">{{ error_signup | safe}}</div>
                     {% endif %}
-                    <div style="width: 90%; background-color: lightblue; border-radius: 15px; margin: auto; text-align: center; padding: 25px; margin-bottom: 15px;" onclick="showDiv('select_user', 'account_form'); ">
+                    <div class="member_type_button" onclick="showDiv('select_user', 'account_form'); document.getElementById('member_type').value = 'Need';">
                         I seek help.
                     </div>
-                    <div style="width: 90%; background-color: lightgreen; border-radius: 15px; margin: auto; text-align: center; padding: 25px;" onclick="showDiv('select_user', 'skills_form');">
+                    <div class="member_type_button" style="background-color: lightgreen;" onclick="showDiv('select_user', 'skills_form'); document.getElementById('member_type').value = 'Volunteer';">
                         I want to volunteer!
+                    </div>
+                    <div class="member_type_button" style="background-color: lightcoral;" onclick="showDiv('select_user', 'account_form'); document.getElementById('member_type').value = 'Institution';
+                                                                                                   document.getElementById('institution_name').style.display = 'block';">
+                        I am an institution
                     </div>
                     <div class="text-center" style="margin-top: 15px;">
                         <span class="txt1">
@@ -72,6 +78,7 @@
                     </div>
                 </div>
                 <div class="wrap-login100" style="display: none;" id="skills_form">
+                    
                     <span class="login100-form-title p-b-26">
                         Tell us who you are
                     </span>
@@ -91,7 +98,7 @@
                         <div class="skill button" onclick="selectSkill('Gardening', skills);" id="Gardening_skill">Gardening</div>
                         {% endfor %}
                     </div>
-                    
+
                     <div style="margin-bottom: 15px;">
                         Sex
                         <select style="width: 100%; border-radius: 10px; ">
@@ -104,6 +111,34 @@
                     <div class="wrap-input100 validate-input">
                         <input class="input100" type="text" pattern="[0-9]{1,}" name="age" title="Age contain numbers only" required=True>
                         <span class="focus-input100" data-placeholder="Age"></span>
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <div class="login100-form-btn" onclick="showDiv('skills_form', 'account_form');">
+                                Continue (2/3)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap-login100" style="display: none;" id="account_form">
+                    <span class="login100-form-title p-b-26">
+                        Few more details
+                    </span>
+                    <div class="wrap-input100 validate-input" id="institution_name" style="display: none;">
+                        <input class="input100" type="text" pattern="[A-Za-z0-9]{1,}" name="institution_name" title="The name of your institution" required=True>
+                        <span class="focus-input100" data-placeholder="Institution Name"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name" title="Names contain letters only" required=True>
+                        <span class="focus-input100" data-placeholder="First Name"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="last_name" title="Names contain letters only" required=True>
+                        <span class="focus-input100" data-placeholder="Last Name"></span>
                     </div>
                     <div class="wrap-input100 validate-input">
                         <input class="input100" type="text" name="location" title="Location not found" required=True>
@@ -120,29 +155,7 @@
                         <span class="focus-input100" data-placeholder="Zip code"></span>
                     </div>
 
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <div class="login100-form-btn" onclick="showDiv('skills_form', 'account_form');">
-                                Continue (2/3)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="wrap-login100" style="display: none;" id="account_form">
-                    <span class="login100-form-title p-b-26">
-                        Few more details
-                    </span>
-
-                    <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name" title="Names contain letters only" required=True>
-                        <span class="focus-input100" data-placeholder="First Name"></span>
-                    </div>
-
-                    <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="last_name" title="Names contain letters only" required=True>
-                        <span class="focus-input100" data-placeholder="Last Name"></span>
-                    </div>
+    
 
                     <div class="wrap-input100 validate-input">
                         <input class="input100" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter valid email: a@b.c" required=True>

@@ -111,7 +111,7 @@ def register():
             session.new = True
             return redirect(url_for("homepage"))
         else:
-            return render_template("register.html", error_login="Email already in database. Try signing in")
+            return render_template("register.html", error_signup="Email already in database. Try signing in")
 
 @app.route('/dashboard', methods=['GET'])
 def dashboard():    
