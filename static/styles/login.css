@@ -213,6 +213,16 @@ iframe {
 .skill:hover {
 	cursor: pointer;
 }
+
+.member_type_button{
+     width: 90%; 
+    background-color: lightblue; 
+    border-radius: 15px; 
+    margin: auto; 
+    text-align: center; 
+    padding: 25px;
+    margin-bottom: 15px;
+}
 /*------------------------------------------------------------------
 [ Form ]*/
 
