@@ -109,6 +109,11 @@ def register():
         else:
             return render_template("login.html", error_login="Email already in database. Try signing in")
 
+@app.route('/dashboard', methods=['GET'])
+def dashboard():    
+    global mongo
+    tasks = list(mongo.db.tasks.find())
+    return render_template("dashboard.html", tasks=tasks)
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
