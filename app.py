@@ -80,17 +80,21 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     global mongo
+    session.clear()
     if is_user_connected():
         return redirect(url_for("homepage"))
     if request.method == 'GET':
-        return render_template("register.html")
+        skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
+                  "Cooking", "Administrative"]
+        return render_template("register.html", skills=skills)
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
-        f = Fernet(bytes(app.secret_key, 'utf-8'))
-        data["pass"] = f.encrypt(data["pass"].encode())
-        data["first_name"] = f.encrypt(data["first_name"].encode())
-        data["last_name"] = f.encrypt(data["last_name"].encode())
-        data["email"] = f.encrypt(data["email"].encode())
+        # f = Fernet(bytes(app.secret_key, 'utf-8'))
+        # data["pass"] = f.encrypt(data["pass"].encode())
+        # data["first_name"] = f.encrypt(data["first_name"].encode())
+        # data["last_name"] = f.encrypt(data["last_name"].encode())
+        # data["email"] = f.encrypt(data["email"].encode())
+        # data["phone"] = f.encrypt(data["phone"].encode())
         data["creation_date"] = datetime.now()
         data["geolocation"] = simple_geoip.get_geoip_data()
         data.pop("pass2")

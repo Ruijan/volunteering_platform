@@ -1,141 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico" />
     <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/icons/favicon.ico') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/iconic/css/material-design-iconic-font.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/css-hamburgers/hamburgers.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animsition/css/animsition.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/styles/util.css">
-	<link rel="stylesheet" type="text/css" href="../static/styles/login.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/util.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/login.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
-<!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/intlTelInput.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intlTelInput.css') }}">
+    <script>
+        var skills = [];
+
+    </script>
 </head>
+
 <body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" target="_self" method="post">
-					<span class="login100-form-title p-b-26">
-						Welcome
-					</span>
-					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
-					</span>
+    <form class="login100-form validate-form" target="_self" method="post">
+
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100" style="display: block; padding-top: 35px;" id="select_user">
                     {% if error_signup %}
                     <div class="error_login">{{ error_signup | safe}}</div>
                     {% endif %}
-                    
-                    <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name" title="Names contain letters only" required=True>
-						<span class="focus-input100" data-placeholder="First Name"></span>
-					</div>
-                    
-                    <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" pattern="[A-Za-z]{1,}" name="last_name" title="Names contain letters only" required=True>
-						<span class="focus-input100" data-placeholder="Last Name"></span>
-					</div>
+                    <div style="width: 90%; background-color: lightblue; border-radius: 15px; margin: auto; text-align: center; padding: 25px; margin-bottom: 15px;" onclick="showDiv('select_user', 'account_form'); ">
+                        I seek help.
+                    </div>
+                    <div style="width: 90%; background-color: lightgreen; border-radius: 15px; margin: auto; text-align: center; padding: 25px;" onclick="showDiv('select_user', 'skills_form');">
+                        I want to volunteer!
+                    </div>
+                    <div class="text-center" style="margin-top: 15px;">
+                        <span class="txt1">
+                            Already have an account?
+                        </span>
 
-					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter valid email: a@b.c" required=True>
-						<span class="focus-input100" data-placeholder="Email"></span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="pass" required=True>
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
+                        <a class="txt2" href="/login">
+                            Log In
+                        </a>
+                    </div>
+                </div>
+                <div class="wrap-login100" style="display: none;" id="skills_form">
+                    <span class="login100-form-title p-b-26">
+                        Tell us who you are
+                    </span>
+                    <div style="height: 200px;">
+                        What do you want to do?<br>
+                        {% for skill in skills %}
+                        <div class="skill button" onclick="selectSkill('{{ skill }}', skills);" id="{{ skill }}_skill">{{ skill }}</div>
+                        {% else %}
+                        <div class="skill button" onclick="selectSkill('Dog walking', skills);" id="Dog walking_skill">Dog walking</div>
+                        <div class="skill button" onclick="selectSkill('Groceries shopping', skills);" id="Groceries shopping_skill">Groceries shopping</div>
+                        <div class="skill button" onclick="selectSkill('House cleaning', skills);" id="House cleaning_skill">House cleaning</div>
+                        <div class="skill button" onclick="selectSkill('Call check', skills);" id="Call check_skill">Call check</div>
+                        <div class="skill button" onclick="selectSkill('Cooking', skills);" id="Cooking_skill">Cooking</div>
+                        <div class="skill button" onclick="selectSkill('Psychological help', skills);" id="Psychological help_skill">Psychological help</div>
+                        <div class="skill button" onclick="selectSkill('Administrative', skills);" id="Administrative_skill">Administrative</div>
+                        <div class="skill button" onclick="selectSkill('Nursing', skills);" id="Nursing_skill">Nursing</div>
+                        <div class="skill button" onclick="selectSkill('Gardening', skills);" id="Gardening_skill">Gardening</div>
+                        {% endfor %}
+                    </div>
                     
+                    <div style="margin-bottom: 15px;">
+                        Sex
+                        <select style="width: 100%; border-radius: 10px; ">
+                            <option>Female</option>
+                            <option>Male</option>
+                            <option>Do not wish to answer</option>
+                        </select>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" pattern="[0-9]{1,}" name="age" title="Age contain numbers only" required=True>
+                        <span class="focus-input100" data-placeholder="Age"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" name="location" title="Location not found" required=True>
+                        <span class="focus-input100" data-placeholder="Address"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" style="width: 55%; float: right">
+                        <input class="input100" type="text" name="city" title="City" required=True>
+                        <span class="focus-input100" data-placeholder="City"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" style="width: 40%;">
+                        <input class="input100" type="text" pattern="[0-9]{4,}" name="zip_code" title="Zip code" required=True>
+                        <span class="focus-input100" data-placeholder="Zip code"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <div class="login100-form-btn" onclick="showDiv('skills_form', 'account_form');">
+                                Continue (2/3)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap-login100" style="display: none;" id="account_form">
+                    <span class="login100-form-title p-b-26">
+                        Few more details
+                    </span>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name" title="Names contain letters only" required=True>
+                        <span class="focus-input100" data-placeholder="First Name"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="last_name" title="Names contain letters only" required=True>
+                        <span class="focus-input100" data-placeholder="Last Name"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter valid email: a@b.c" required=True>
+                        <span class="focus-input100" data-placeholder="Email"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                    </div>
+
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="input100" type="password" name="pass" required=True id="pass">
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+
                     <div class="wrap-input100 validate-input" data-validate="Re-Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="pass2" required=True>
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="input100" type="password" name="pass2" required=True id="pass2">
+                        <span class="focus-input100" data-placeholder="Password confirmation"></span>
+                    </div>
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								Sign up
-							</button>
-						</div>
-					</div>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Sign up
+                            </button>
+                        </div>
+                    </div>
 
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Already have an account?
-						</span>
+                    <div class="text-center" style="margin-top: 15px;">
+                        <span class="txt1">
+                            Already have an account?
+                        </span>
 
-						<a class="txt2" href="/login">
-							Log In
-						</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	
+                        <a class="txt2" href="/login">
+                            Log In
+                        </a>
+                    </div>
 
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/animsition/js/animsition.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/animsition/js/animsition.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/bootstrap/js/popper.js"></script>
-	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/bootstrap/js/popper.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/select2/select2.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/select2/select2.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/daterangepicker/moment.min.js"></script>
-	<script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/moment.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/countdowntime/countdowntime.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/js/login.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/js/register.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='js/register.js')}}"></script>
+    <script src="../static/js/intlTelInput.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/intlTelInput.js')}}"></script>
+    <script>
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+            // allowDropdown: false,
+            autoHideDialCode: false,
+            // autoPlaceholder: "off",
+            // dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: false,
+            geoIpLookup: function(callback) {
+                $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            },
+            // hiddenInput: "full_number",
+            // initialCountry: "auto",
+            // localizedCountries: { 'de': 'Deutschland' },
+            // nationalMode: false,
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            // placeholderNumberType: "MOBILE",
+            preferredCountries: ['ch', 'fr', 'de', 'it'],
+            separateDialCode: true,
+            utilsScript: "../static/js/utils.js",
+        });
+
+    </script>
 
 </body>
+
 </html>
