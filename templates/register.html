@@ -42,7 +42,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intlTelInput.css') }}">
     <script>
         var skills = [];
-
+        
     </script>
 </head>
 
@@ -63,7 +63,8 @@
                     <div class="member_type_button" style="background-color: lightgreen;" onclick="showDiv('select_user', 'skills_form'); document.getElementById('member_type').value = 'Volunteer';">
                         I want to volunteer!
                     </div>
-                    <div class="member_type_button" style="background-color: lightcoral;" onclick="showDiv('select_user', 'skills_form'); document.getElementById('member_type').value = 'Volunteer';">
+                    <div class="member_type_button" style="background-color: lightcoral;" onclick="showDiv('select_user', 'account_form'); document.getElementById('member_type').value = 'Institution';
+                                                                                                   document.getElementById('institution_name').style.display = 'block';">
                         I am an institution
                     </div>
                     <div class="text-center" style="margin-top: 15px;">
@@ -126,7 +127,10 @@
                     <span class="login100-form-title p-b-26">
                         Few more details
                     </span>
-                    
+                    <div class="wrap-input100 validate-input" id="institution_name" style="display: none;">
+                        <input class="input100" type="text" pattern="[A-Za-z0-9]{1,}" name="institution_name" title="The name of your institution" required=True>
+                        <span class="focus-input100" data-placeholder="Institution Name"></span>
+                    </div>
                     <div class="wrap-input100 validate-input">
                         <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name" title="Names contain letters only" required=True>
                         <span class="focus-input100" data-placeholder="First Name"></span>
