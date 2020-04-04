@@ -12,7 +12,7 @@ global pymongo_connected
 global mongo
 
 pymongo_connected = False
-if 'MONGO_URI' in os.environ and not pymongo_connected:
+if 'MONGO_URI_VOLUNTEER' in os.environ and not pymongo_connected:
     app.config['MONGO_DBNAME'] = 'volunteering'
     app.config['MONGO_URI'] = os.environ['MONGO_URI_VOLUNTEER'].strip("'").replace('test', app.config['MONGO_DBNAME'])
     app.config["GEOIPIFY_API_KEY"] = os.environ['WHOIS_KEY']
