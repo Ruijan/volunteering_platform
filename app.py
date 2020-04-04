@@ -5,6 +5,9 @@ from flask_pymongo import PyMongo, request
 from cryptography.fernet import Fernet
 from datetime import datetime
 from flask_simple_geoip import SimpleGeoIP
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+
 
 app = Flask("Company Explorer")
 app.secret_key = os.environ["MONGO_KEY_VOLUNTEER"]
@@ -46,20 +49,20 @@ def login():
         return render_template("login.html")
     if request.method == 'POST':
         data = request.form
-        f = Fernet(bytes(app.secret_key, 'utf-8'))
+        # f = Fernet(bytes(app.secret_key, 'utf-8'))
         users = list(mongo.db.users.find())
         user = None
         for tmp_user in users:
-            if isinstance(tmp_user["email"], bytes):
-                email = f.decrypt(tmp_user["email"]).decode("utf-8")
-                if email == data["email"]:
-                    user = tmp_user
+            if tmp_user["email"] == data["email"]:
+                user = tmp_user
         if user is not None:
-            db_pass = f.decrypt(user["pass"]).decode("utf-8")
+            #db_pass = f.decrypt(user["pass"]).decode("utf-8")
+            db_pass = user["password"]
             if db_pass == data["pass"]:
                 session["USER"] = user["email"]
+                session["LOCALIZATION"] = " ".join([user["address"], str(user["zip_code"]), user["city"]])
                 session.new = True
-                return redirect(url_for("homepage"))
+                return redirect(url_for("dashboard"))
             else:
                 return render_template("login.html", error_login="Wrong password")
         else:
@@ -80,7 +83,6 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     global mongo
-    session.clear()
     if is_user_connected():
         return redirect(url_for("homepage"))
     if request.method == 'GET':
@@ -96,6 +98,7 @@ def register():
         # data["email"] = f.encrypt(data["email"].encode())
         # data["phone"] = f.encrypt(data["phone"].encode())
         data["creation_date"] = datetime.now()
+        data["status"] = 0
         data["geolocation"] = simple_geoip.get_geoip_data()
         data.pop("pass2")
         user = None
@@ -108,16 +111,26 @@ def register():
             data["last_connection"] = datetime.now()
             mongo.db.users.insert_one(data)
             session["USER"] = data["email"]
+            session["LOCALIZATION"] = " ".join([data["address"], data["zip_code"], data["city"]])
             session.new = True
             return redirect(url_for("homepage"))
         else:
             return render_template("register.html", error_signup="Email already in database. Try signing in")
 
 @app.route('/dashboard', methods=['GET'])
-def dashboard():    
+def dashboard():
     global mongo
-    tasks = list(mongo.db.tasks.find())
-    return render_template("dashboard.html", tasks=tasks)
+    if is_user_connected():
+        tasks = list(mongo.db.tasks.find())
+        for task in tasks:
+            geolocator = Nominatim()
+            location_user = geolocator.geocode(session["LOCALIZATION"])
+            location_task = geolocator.geocode(task["localization"])
+            task["distance"] = geodesic((location_user.latitude, location_user.longitude),
+                                        (location_task.latitude, location_task.longitude)).kilometers
+        return render_template("dashboard.html", tasks=tasks)
+    else:
+        return redirect(url_for("login"))
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'

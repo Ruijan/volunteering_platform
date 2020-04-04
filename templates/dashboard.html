@@ -39,24 +39,29 @@
 <!--===============================================================================================-->
 </head>
 <body>
+    
 	<div class="row">
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
+            <div class="col-md-2">
+                <div style="border-radius: 5px; background-color: burlywood; padding: 5px; text-align: center;" onclick="disconnect();">Log out</div></div>
 				<table class="table">
 					<thead>
 					  <tr>
-						<th scope="col">Title</th>
+						<th scope="col">Task</th>
 						<th scope="col">Estimated Time</th>
-						<th scope="col">Skills</th>
+						<th scope="col">Time range</th>
+                          <th scope="col">Zip code</th>
 					  </tr>
 					</thead>
 					<tbody>
 						{%for task in tasks%} 
 							<tr>
-								<td> {{ task.title }} 	</td>
-								<td> {{ task.estimatedTime }} </td>
-								<td> {{ task.skills }} </td>
+								<td> {{ task["task"] }} </td>
+								<td> {{ task["task_duration-in-minutes"] }}min </td>
+								<td> {{ task.date_time_start }} to  {{ task.date_time_end }}</td>
+                                <td> {{ task.localization }} </td>
 							</tr>
 						{%endfor%} 
 					 
@@ -95,8 +100,8 @@
 	<script src="../static/vendor/countdowntime/countdowntime.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="../static/js/login.js"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='js/register.js')}}"></script>
+	<script src="../static/js/dashboard.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/dashboard.js')}}"></script>
 
 </body>
 </html>
