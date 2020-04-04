@@ -111,7 +111,7 @@ def register():
             session.new = True
             return redirect(url_for("homepage"))
         else:
-            return render_template("login.html", error_login="Email already in database. Try signing in")
+            return render_template("register.html", error_login="Email already in database. Try signing in")
 
 
 if __name__ == '__main__':
