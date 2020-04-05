@@ -1,3 +1,4 @@
+import json
 import os
 import pandas as pd
 from bson import ObjectId
@@ -160,8 +161,27 @@ def dashboard():
                 accepted_tasks = current_user["accepted_tasks"]
             for task in accepted_tasks:
                 task["status"] = "On Going" if task["status"] == 1 else "Complete"
+            feature_tasks = [
+                {"type": "Feature",
+                 "geometry": {"type": "Point", "coordinates": (task["coordinates"][1], task["coordinates"][0])},
+                 "properties": {"description": "<div style='text-align: center; width: 100%;'><img src=" +
+                                               ("'static/images/grandpa.png'" if task[
+                                                                                     "gender"] == "Male" else "'static/images/grandma.png'") + "width='50%'></div>" +
+                                               "<div style='text-align: center; width: 100%; margin-bottom: 15px;'>" +
+                                               task["user_first_name"] +
+                                               "</div><strong>Task: " + task["task"] +
+                                               "</strong><br/><strong>Urgency:</strong> " + str(
+                     task["emergency_level"]) +
+                                               "<br><strong>Duration:</strong> " + str(
+                     task["task_duration-in-minutes"]) +
+                                               "min<br><strong>Start:</strong> " + task["date_time_start"] +
+                                               "<form class='login100-form validate-form' target='_self' "
+                                               "method='post' style='width: 100%; text-align: center;'>"
+                                               "<input value='" + str(task['_id']) + "' name='_id' hidden>"
+                                                                                     "<button class='be_a_hero_button' style='width:100%;' type='submit'>Be a hero!</button></form>"}}
+                for task in tasks]
             return render_template("dashboard.html", tasks=tasks, first_name=session["FIRST_NAME"],
-                                   accepted_tasks=accepted_tasks)
+                                   accepted_tasks=accepted_tasks, feature_tasks=feature_tasks)
         elif current_user["member_type"] == "Need":
 
             accepted_tasks = list(mongo.db.tasks.find({"user_id": current_user["_id"]}))
@@ -177,14 +197,15 @@ def dashboard():
 def map():
     global mongo
     tasks = list(mongo.db.tasks.find())
-    [{"type": "Feature"}]
-    tasks
+
     return render_template("map.html")
 
-@app.route('/choose_volunteer', methods=['GET']) 
+
+@app.route('/choose_volunteer', methods=['GET'])
 def choose_volunteer():
     global mongo
     return render_template("choose_volunteer.html")
+
 
 @app.route('/add-task', methods=['GET'])
 def add_task():
@@ -192,6 +213,7 @@ def add_task():
               "Cooking", "Administrative"]
     global mongo
     return render_template("add_task.html", skills=skills)
+
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
