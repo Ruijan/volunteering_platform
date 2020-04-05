@@ -9,6 +9,18 @@ function selectSkill(skillName){
     document.getElementById("selected_skill").value = skillName;
 }
 
+function selectEmergency(emergency){
+    emergencies = document.getElementsByClassName("emergency_button");
+    for (level in emergencies){
+        if (emergencies[level].innerHTML){
+            emergencies[level].style.backgroundColor = "whitesmoke";
+            emergencies[level].style.boxShadow = "0px";
+        }
+    }
+    document.getElementById(emergency).style.backgroundColor= "lightblue"
+    document.getElementById("selected_emergency").value = emergency;
+}
+
 function showDiv(divToHide, divToShow){
     document.getElementById(divToHide).style.display = "none";
     document.getElementById(divToShow).style.display = "block";

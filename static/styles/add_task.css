@@ -1,3 +1,6 @@
 .skill_button{
     margin: 1px;
 }
+.emergency_button:focus{
+    box-shadow: 0 0 0 0px rgba(134,142,150,.5);
+}

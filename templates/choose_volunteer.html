@@ -49,7 +49,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightgreen; color: white;">
-        <a class="navbar-brand" href="#"><img src="{{ url_for('static',filename='images/LH6.png') }}" height="30"
+        <a class="navbar-brand" href="{{ url_for('homepage') }}"><img src="{{ url_for('static',filename='images/LH6.png') }}" height="30"
                 alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,10 +59,10 @@
         <div class="collapse navbar-collapse te" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold" href="#">Home</a>
+                    <a class="nav-link font-weight-bold" href="{{ url_for('homepage') }}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link font-weight-bold" href="#">Tasks <span class="sr-only">(current)</span></a>
+                    <a class="nav-link font-weight-bold" href="{{ url_for('dashboard') }}">Tasks <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="#">Rewards</a>

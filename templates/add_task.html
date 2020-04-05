@@ -45,6 +45,7 @@
 <body>
     <form class="login100-form validate-form" target="_self" method="post">
         <input type="text" value="" name="selected_skill" id="selected_skill" hidden>
+        <input type="text" value="" name="selected_emergency" id="selected_emergency" hidden>
         <div class="limiter">
             <div class="container-login100 bg-light">
                 <div class="wrap-login100" style="background-color: #F0F0F0; display: block;" id="skills_form">
@@ -62,7 +63,6 @@
                                 </button>
                                 {% endfor %}
                             </div>
-
                         </div>
                     </div>
                     <div class="container-login100-form-btn">
@@ -78,31 +78,36 @@
                     <span class="login100-form-title p-b-26">
                         Few more details
                     </span>
-                      <label for="helpday">When do you need help?</label>
-                      <input type="date" id="helpday" name="helpday">
-
+                    <div class="wrap-input100 validate-input">
+                        <label for="helpday">When do you need help?</label>
+                        <input class="input100" type="date" id="helpday" name="helpday" required>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="time" id="appt" name="appt" required>
+                    </div>
+                    <p>How long could it last? (in min)</p>
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" id="duration" name="duration" pattern="[0-9]{1,}" required>
+                        <span class="focus-input100" data-placeholder="Duration"></span>
+                    </div>
+                    <p>How urgent is the task?</p>
+                    <div class="input-group mb-3" style="margin-bottom: 100px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary emergency_button" type="button" onclick="selectEmergency('Urgent');" id="Urgent">Urgent</button>
+                            <button class="btn btn-outline-secondary emergency_button" type="button" onclick="selectEmergency('Medium');" id="Medium">Medium</button>
+                            <button class="btn btn-outline-secondary emergency_button" type="button" onclick="selectEmergency('Low');" id="Low">Low</button>
+                        </div>
+                    </div>
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
                             <button class="login100-form-btn">
-                                Sign up
+                                Create request
                             </button>
                         </div>
                     </div>
-
-                    <div class="text-center" style="margin-top: 15px;">
-                        <span class="txt1">
-                            Already have an account?
-                        </span>
-
-                        <a class="txt2" href="/login">
-                            Log In
-                        </a>
-                    </div>
-
                 </div>
             </div>
-
         </div>
     </form>
 
@@ -135,6 +140,4 @@
     <script src="../static/js/add_task.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='js/add_task.js') }}"></script>
 
-</body>
-
-</html>
+</body></html>

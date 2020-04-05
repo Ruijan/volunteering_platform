@@ -97,6 +97,7 @@ def register():
         return render_template("register.html", skills=skills)
     if request.method == 'POST':
         data = request.form.to_dict(flat=True)
+        geolocator = Nominatim(timeout=3)
         # f = Fernet(bytes(app.secret_key, 'utf-8'))
         # data["pass"] = f.encrypt(data["pass"].encode())
         # data["first_name"] = f.encrypt(data["first_name"].encode())
@@ -104,9 +105,13 @@ def register():
         # data["email"] = f.encrypt(data["email"].encode())
         # data["phone"] = f.encrypt(data["phone"].encode())
         data["creation_date"] = datetime.now()
+        data["password"] = data["pass"]
+        location = geolocator.geocode(" ".join([data["address"], str(data["zip_code"]), data["city"]]))
+        data["coordinates"] = (location.latitude, location.longitude)
         data["status"] = 0
         data["geolocation"] = simple_geoip.get_geoip_data()
         data.pop("pass2")
+        data.pop("pass")
         user = None
         try:
             user = mongo.db.users.find_one({"email": data["email"]})
@@ -201,12 +206,24 @@ def choose_volunteer():
     return render_template("choose_volunteer.html", users=users)
 
 
-@app.route('/add-task', methods=['GET'])
+@app.route('/add-task', methods=['GET', 'POST'])
 def add_task():
-    skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
-              "Cooking", "Administrative"]
     global mongo
-    return render_template("add_task.html", skills=skills)
+    if request.method == 'POST':
+        current_user = mongo.db.users.find_one({"email": session["USER"]})
+        data = request.form.to_dict(flat=True)
+        task = {"task": data["selected_skill"],  "date_time_start": data["helpday"], "task_duration-in-minutes":  data["duration"],
+            "user_id": current_user["_id"],  "address": current_user["address"], "emergency_level": data["selected_emergency"],
+            "zip_code": current_user["zip_code"], "city": current_user["city"],
+            "phone": current_user["phone"], "user_first_name": current_user["first_name"],
+            "gender": current_user["gender"],
+            'status': 0, "volunteer_id": -1}
+        mongo.db.tasks.insert_one(task)
+        return redirect(url_for("choose_volunteer"))
+    elif request.method == 'GET':
+        skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
+                  "Cooking", "Administrative"]
+        return render_template("add_task.html", skills=skills)
 
 
 if __name__ == '__main__':
