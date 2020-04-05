@@ -195,7 +195,8 @@ def map():
 @app.route('/choose_volunteer', methods=['GET'])
 def choose_volunteer():
     global mongo
-    return render_template("choose_volunteer.html")
+    users = list(mongo.db.users.find({"member_type" : "Volunteer"}))
+    return render_template("choose_volunteer.html", users=users)
 
 
 @app.route('/add-task', methods=['GET'])
