@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico" />
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/icons/favicon.ico') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/iconic/css/material-design-iconic-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/dashboard.css') }}">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightgreen; color: white;">
+        <a class="navbar-brand" href="#"><img src="{{ url_for('static',filename='images/LH6.png') }}" height="30" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse te" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold" href="#">Tasks <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Rewards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Training</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Community</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown" style="margin-right: 15px;">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/user.png') }}" height="50"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" onclick="disconnect();">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="font-weight-bold">Hello {{ first_name }}</span>
+            </form>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-5 p-3 p-md-2 container request_help_button" style="" onclick="createTask();">
+                <span class="align-middle" style="font-size: 32px;">
+                    Request help
+                </span>
+            </div>
+            <div width="100%" style="margin: 10px; width: 100%;">
+                <h1>My requests</h1>
+            </div>
+            <div class="masthead-followup row m-0 border border-white">
+
+                
+                {% if accepted_tasks %}
+                {%for task in accepted_tasks%}
+                {% if task["status"] == "On Going" %}
+                <div class="col-md-5 p-3 p-md-2 border border-white" style="margin: 20px; background-color: lightblue;">
+                    {% elif task["status"] == "Complete" %}
+                    <div class="col-md-5 p-3 p-md-2 border border-white" style="margin: 20px; background-color: lightgreen;">
+                        {% else %}
+                        <div class="col-md-5 p-3 p-md-2 border border-white" style="margin: 20px; background-color: whitesmoke;">
+                            {% endif %}
+                            <div style="text-align: center; width: 100%;"><img src="{{ url_for('static',filename='images/user.png') }}" width="50%"></div>
+                            <div style="text-align: center; width: 100%; margin-bottom: 15px;"> Diane will be helping you </div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td> Task: </td>
+                                        <td> {{ task["task"] }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Status: </td>
+                                        <td> {{ task["status"] }} </td>
+                                    </tr>
+                                    {% if task["emergency_level"] == 0 %}
+                                    <tr>
+                                        <td> Urgency: </td>
+                                        <td>
+                                            <div style="width: 50%; padding: 5px; background-color: lightgreen; border-radius: 10px; text-align: center;">Low</div>
+                                        </td>
+                                    </tr>
+                                    {% elif task["emergency_level"] == 1 %}
+                                    <tr>
+                                        <td> Urgency: </td>
+                                        <td>
+                                            <div style="width: 50%; padding: 5px; background-color: lightsalmon; border-radius: 10px; text-align: center;">Medium</div>
+                                        </td>
+                                    </tr>
+                                    {% elif task["emergency_level"] == 2 %}
+                                    <tr>
+                                        <td> Urgency: </td>
+                                        <td>
+                                            <div style="width: 50%; padding: 5px; background-color: lightcoral; border-radius: 10px; text-align: center;">High!</div>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td> Duration: </td>
+                                        <td> {{ task["task_duration-in-minutes"] }}min </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Start: </td>
+                                        <td> {{ task.date_time_start }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Address: </td>
+                                        <td> {{ task.address }}, {{ task.zip_code }}, {{ task.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Phone: </td>
+                                        <td> {{ task.phone }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="masthead-followup row m-0" style="margin: 20px;  ">
+                                <div class="be_a_hero_button col-md-5" style="margin-bottom: 20px;" onclick="selectTask({{ task['_id'] }});">Contact</div>
+                                <div class="cancel_button col-md-5" style="margin-bottom: 20px;" onclick="selectTask({{ task['_id'] }});">Cancel</div>
+                                <div class="col-md-5"></div>
+                            </div>
+                            <div class="mission_complete" onclick="selectTask({{ task['_id'] }});">Mission Complete !</div>
+                        </div>
+                        {%endfor%}
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+
+
+
+
+
+            <div id="dropDownSelect1"></div>
+
+            <!--===============================================================================================-->
+            <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/vendor/animsition/js/animsition.min.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/animsition/js/animsition.min.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/vendor/bootstrap/js/popper.js"></script>
+            <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/vendor/select2/select2.min.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/select2/select2.min.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/vendor/daterangepicker/moment.min.js"></script>
+            <script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/moment.min.js')}}"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/vendor/countdowntime/countdowntime.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js')}}"></script>
+            <!--===============================================================================================-->
+            <script src="../static/js/dashboard.js"></script>
+            <script type="text/javascript" src="{{ url_for('static',filename='js/dashboard.js')}}"></script>
+
+</body>
+
+</html>
