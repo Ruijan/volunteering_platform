@@ -131,7 +131,7 @@ def dashboard():
     if is_user_connected():
         current_user = mongo.db.users.find_one({"email": session["USER"]})
         if current_user["member_type"] == "Volunteer":
-            tasks = list(mongo.db.tasks.find({"city": session["CITY"]}))
+            tasks = list(mongo.db.tasks.find({"city": session["CITY"]}).limit(10))
 
             geolocator = Nominatim(timeout=3)
             location_user = geolocator.geocode(session["LOCALIZATION"])
@@ -176,6 +176,9 @@ def dashboard():
 @app.route('/map', methods=['GET'])
 def map():
     global mongo
+    tasks = list(mongo.db.tasks.find())
+    [{"type": "Feature"}]
+    tasks
     return render_template("map.html")
 
 @app.route('/add-task', methods=['GET'])
