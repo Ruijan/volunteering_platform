@@ -1,0 +1,214 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/iconic/css/material-design-iconic-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/dashboard.css') }}">
+</head>
+
+<body>
+
+    {% if first_name %}
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightgreen; color: white; margin-bottom: 50px;">
+        <a class="navbar-brand" href="#"><img src="{{ url_for('static',filename='images/LH6.png') }}" height="30" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse te" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold" href="#">Tasks <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Rewards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Training</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Associations</a>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown" style="margin-right: 15px;">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/user.png') }}" height="50"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" onclick="availability();">Availability</a>
+                            <a class="dropdown-item" href="#" onclick="disconnect();">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="font-weight-bold">Hello {{ first_name }}</span>
+            </form>
+        </div>
+    </nav>
+    {% else %}
+    <div class="masthead-followup row m-0 border border-white">
+        <div class="col-md-4" style="margin:auto; text-align: center; margin: 20px; margin: auto;">
+        </div>
+        <div class="col-md-4" style="margin: auto;"></div>
+        <div class="col-md-4" style="margin: auto; text-align: right; padding: 10px;">
+            <div style="margin: 20px; float:right;">
+                <a href="{{ url_for('login') }}"> Log In</a>
+            </div>
+            <div style="margin: 20px; float:right;">
+                <a href="{{ url_for('register') }}"> Register</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="col-md-10" style="margin:auto; text-align: center; margin: 20px; margin: auto;">
+        <img src="../static/images/LH6.png" width="60%;">
+    </div>
+    <div style="margin:auto; text-align: center; margin-bottom: 75px;">
+        <h3>The simplest way to help and receive help in Switzerland</h3>
+    </div>
+    <div style="margin:auto; text-align: center;"><img src="../static/images/main.png" width="70%;"> </div>
+    <div style="margin:auto; width: 50%; text-align: center; margin-bottom: 20px;">LocalHero.swiss is a platform which brings together 3 key actors to foster solidarity :
+        local <strong>communities</strong>, citizens willing to volunteers, people in need of a service
+    </div>
+    <div style="margin:auto; width: 50%; text-align: center;">
+        Our platform enables to match skills of volunteers and needs of the citizens,
+        in a safe environment via web/app or via phone call
+    </div>
+    <div class="col-md-10" style="margin: auto; width: 100%; text-align: center; margin-bottom: 30px; margin-top: 20px;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Ep63z9-ES-0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="masthead-followup row m-0 border border-white">
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white;">
+            <img src="../static/images/local_heor.png" height="200px;">
+            <h3>I WANT TO BE A LOCAL HERO</h3>
+            <p style="">
+                It only takes 1 second to propose help ! Once you're in, enjoy the simplicity of the app, decide to train to increase your skills, and get rewarded for making a change
+            </p>
+
+        </div>
+        <div class="col-md-4 p-3 p-md-2border border-white" style="text-align: center; background-color: white;">
+            <img src="../static/images/couch.png" height="200px;">
+            <h3>I NEED (THE SERVICE OF) A LOCAL HERO</h3>
+            <p>
+                Get the app and indicate your needs, or call us at 0800-01-02-03 and we will set up a request for you in the system
+            </p>
+
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white;">
+            <img src="../static/images/heart.png" height="200px;">
+            <h3>I WANT MY ASSOCIATION TO BE PART OF LOCAL HERO</h3>
+            <p>
+                Make your life simpler with our automated solution to match needs and skills (you can either use the platform or integrate ou plug-in) ; recruit new volunteers looking for the simplicity of a digital interface
+            </p>
+
+        </div>
+    </div>
+    <div class="masthead-followup row m-0 border border-white">
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: transparent">
+            <div class="be_a_hero_button">Register now!</div>
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: transparent">
+            <div class="be_a_hero_button" style="background-color: lightblue;">Ask</div>
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: transparent">
+            <div class="be_a_hero_button" style="background-color: lightgoldenrodyellow;">Connect</div>
+        </div>
+    </div>
+    <div class="masthead-followup row m-0 border border-white" style="">
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin-top: auto; margin-bottom: auto;">
+            <hr>
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin-top: 20px; margin-bottom: 20px;">
+            <img src="../static/images/phone.png" height="75px;">
+            <img src="../static/images/call.png" height="75px;">
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin-top: auto; margin-bottom: auto;">
+            <hr>
+        </div>
+    </div>
+    <div class="masthead-followup row m-0 border border-white" style="margin:auto; text-align: center;">
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+            <img src="../static/images/app_store.jpg" height="75px;">
+        </div>
+        <div class="col-md-4 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+            <img src="../static/images/play_store.png" height="75px;">
+        </div>
+    </div>
+    <div class="col-md-5 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+        <h1>
+            WHO ARE WE ?
+        </h1>
+    </div>
+    <div class="col-md-5 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+        We are a team of diverse backgrounds and nationality,
+        brought together in the Versuvirus Hackathon
+        organized by the Swiss Confederation and ImpactHub.
+    </div>
+    <div class="col-md-8 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+        <cite>“We all want to transform the current crisis into an opportunity to grow solidarity all across swiss local communities, and make the actions of government, municipalities and associations more efficient."</cite>
+    </div>
+    <div class="masthead-followup row m-0 border border-white" style="margin:auto; text-align: center;">
+        <div class="col-md-3 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+            <img src="../static/images/cf.png" height="75px;">
+        </div>
+        <div class="col-md-3 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+            <img src="../static/images/impact_hub.png" height="50px;">
+        </div>
+        <div class="col-md-3 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+
+            <img src="../static/images/ssup.png" height="50px;"> </div>
+        <div class="col-md-3 p-3 p-md-2 border border-white" style="text-align: center; background-color: white; margin:auto;">
+
+            <img src="../static/images/versusvirus.png" height="50px;">
+        </div>
+    </div>
+    <p style="text-align: center;">Copyright © 2020 Local Hero. All rights reserved.
+    </p>
+
+    <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/animsition/js/animsition.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/animsition/js/animsition.min.js')}}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/bootstrap/js/popper.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.js')}}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/select2/select2.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/select2/select2.min.js')}}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/moment.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.js')}}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/countdowntime/countdowntime.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js')}}"></script>
+    <script src="../static/js/dashboard.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/dashboard.js')}}"></script>
+</body></html>

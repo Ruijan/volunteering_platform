@@ -38,14 +38,16 @@ def is_user_connected():
 
 @app.route('/')
 def homepage():
-    return redirect(url_for("login"))
+    if is_user_connected():
+        return render_template("index.html", first_name=session["FIRST_NAME"])
+    return render_template("index.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     global mongo
     if is_user_connected():
-        return redirect(url_for("homepage"))
+        return redirect(url_for("dashboard"))
     if request.method == 'GET':
         return render_template("login.html")
     if request.method == 'POST':
@@ -81,14 +83,14 @@ def logout():
             data["connected"] = False
             data["last_connection"] = datetime.now()
         session.clear()
-    return redirect(url_for("login"))
+    return redirect(url_for("homepage"))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     global mongo
     if is_user_connected():
-        return redirect(url_for("homepage"))
+        return redirect(url_for("dashboard"))
     if request.method == 'GET':
         skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
                   "Cooking", "Administrative"]
@@ -195,7 +197,7 @@ def map():
 @app.route('/choose_volunteer', methods=['GET'])
 def choose_volunteer():
     global mongo
-    users = list(mongo.db.users.find({"member_type" : "Volunteer"}))
+    users = list(mongo.db.users.find({"member_type": "Volunteer"}).limit(10))
     return render_template("choose_volunteer.html", users=users)
 
 
