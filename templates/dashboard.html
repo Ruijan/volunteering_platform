@@ -67,14 +67,13 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="#">Associations</a>
-                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown" style="margin-right: 15px;">
                         <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/user.png') }}" height="50"></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" onclick= "availability();">Availability</a>
                             <a class="dropdown-item" href="#" onclick="disconnect();">Log out</a>
                         </div>
                     </li>
