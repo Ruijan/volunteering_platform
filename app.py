@@ -167,6 +167,12 @@ def map():
     global mongo
     return render_template("map.html")
 
+@app.route('/add-task', methods=['GET'])
+def add_task():
+    skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
+              "Cooking", "Administrative"]
+    global mongo
+    return render_template("add_task.html", skills=skills)
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'

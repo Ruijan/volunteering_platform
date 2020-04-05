@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/icons/favicon.ico') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='fonts/iconic/css/material-design-iconic-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/util.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/login.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/intlTelInput.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/intlTelInput.css') }}">
+    <script>
+        var skills = [];
+
+    </script>
+</head>
+
+<body>
+<form class="login100-form validate-form" target="_self" method="post">
+    <input type="text" value="Volunteer" name="member_type" id="member_type" hidden>
+    <div class="limiter">
+        <div class="container-login100 bg-light">
+            <div class="wrap-login100" style="background-color: #F0F0F0; display: block;" id="skills_form">
+                    
+                    <span class="login100-form-title p-b-26">
+                        How can we help you?
+                    </span>
+                <div style="height: 200px;">
+                    What do you want to do?<br>
+
+                    <div class="input-group mb-3" style="margin-bottom: 100px;">
+
+                        <div class="input-group-prepend">
+                            {% for skill in skills %}
+                                <button class="btn btn-outline-secondary" type="button">{{ skill }}
+                                </button>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <div class="login100-form-btn" onclick="showDiv('skills_form', 'confirm_task_form');">
+                            Continue
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap-login100" style="background-color: #F0F0F0; display: none;" id="confirm_task_form">
+                    <span class="login100-form-title p-b-26">
+                        Few more details
+                    </span>
+                <div class="wrap-input100 validate-input" id="institution_name" style="display: none;">
+                    <input class="input100" type="text" pattern="[A-Za-z0-9]{1,}" name="institution_name"
+                           title="Additional details" required=True>
+                    <span class="focus-input100" data-placeholder="Task details"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="first_name"
+                           title="Names contain letters only" required=True>
+                    <span class="focus-input100" data-placeholder="First Name"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" pattern="[A-Za-z]{1,}" name="last_name"
+                           title="Names contain letters only" required=True>
+                    <span class="focus-input100" data-placeholder="Last Name"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" name="address" title="Enter street name and number"
+                           required=True>
+                    <span class="focus-input100" data-placeholder="Address"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" style="width: 55%; float: right">
+                    <input class="input100" type="text" name="city" title="City" required=True>
+                    <span class="focus-input100" data-placeholder="City"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" style="width: 40%;">
+                    <input class="input100" type="text" pattern="[0-9]{4,}" name="zip_code" title="Zip code"
+                           required=True>
+                    <span class="focus-input100" data-placeholder="Zip code"></span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                           title="Please enter valid email: a@b.c" required=True>
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                    <input class="input100" type="password" name="pass" required=True id="pass">
+                    <span class="focus-input100" data-placeholder="Password"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Re-Enter password">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                    <input class="input100" type="password" name="pass2" required=True id="pass2">
+                    <span class="focus-input100" data-placeholder="Password confirmation"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Sign up
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 15px;">
+                        <span class="txt1">
+                            Already have an account?
+                        </span>
+
+                    <a class="txt2" href="/login">
+                        Log In
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/vendor/animsition/js/animsition.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/vendor/select2/select2.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/vendor/daterangepicker/moment.min.js"></script>
+<script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/moment.min.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/vendor/countdowntime/countdowntime.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+<script src="../static/js/register.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/register.js') }}"></script>
+<script src="../static/js/intlTelInput.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/intlTelInput.js') }}"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        // allowDropdown: false,
+        autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        // dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        geoIpLookup: function (callback) {
+            $.get("http://ipinfo.io", function () {
+            }, "jsonp").always(function (resp) {
+                var countryCode = (resp && resp.country) ? resp.country : "";
+                callback(countryCode);
+            });
+        },
+        // hiddenInput: "full_number",
+        // initialCountry: "auto",
+        // localizedCountries: { 'de': 'Deutschland' },
+        // nationalMode: false,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // placeholderNumberType: "MOBILE",
+        preferredCountries: ['ch', 'fr', 'de', 'it'],
+        separateDialCode: true,
+        utilsScript: "../static/js/utils.js",
+    });
+
+</script>
+
+</body>
+
+</html>
