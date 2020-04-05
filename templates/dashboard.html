@@ -1,107 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.ico" />
     <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/icons/favicon.ico') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='fonts/iconic/css/material-design-iconic-font.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animate/animate.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/css-hamburgers/hamburgers.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/animsition/css/animsition.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/select2/select2.min.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.css') }}">
-<!--===============================================================================================-->
-	<!-- <link rel="stylesheet" type="text/css" href="../static/styles/util.css"> -->
-	<!-- <link rel="stylesheet" type="text/css" href="../static/styles/login.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}"> -->
-<!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/styles/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/dashboard.css') }}">
+    <!--===============================================================================================-->
 </head>
+
 <body>
-    
-	<div class="row">
-		<div class="col-md-4">
-		</div>
-		<div class="col-md-4">
-            <div class="col-md-2">
-                <div style="border-radius: 5px; background-color: burlywood; padding: 5px; text-align: center;" onclick="disconnect();">Log out</div></div>
-				<table class="table">
-					<thead>
-					  <tr>
-						<th scope="col">Task</th>
-						<th scope="col">Estimated Time</th>
-						<th scope="col">Time range</th>
-                          <th scope="col">Zip code</th>
-					  </tr>
-					</thead>
-					<tbody>
-						{%for task in tasks%} 
-							<tr>
-								<td> {{ task["task"] }} </td>
-								<td> {{ task["task_duration-in-minutes"] }}min </td>
-								<td> {{ task.date_time_start }} to  {{ task.date_time_end }}</td>
-                                <td> {{ task.localization }} </td>
-							</tr>
-						{%endfor%} 
-					 
-					</tbody>
-				  </table>
-		</div>
-		<div class="col-md-4">
-		</div>
-	</div>
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: lightgreen; color: white;">
+        <a class="navbar-brand" href="#"><img src="{{ url_for('static',filename='images/LH6.png') }}" height="30" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse te" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Rewards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Training</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#">Community</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown" style="margin-right: 15px;">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/user.png') }}" height="50"></a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" onclick="disconnect();">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="font-weight-bold">Hello {{ first_name }}</span>
+            </form>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="masthead-followup row m-0 border border-white">
+                <div width="100%" style="margin: 10px;">
+                    <h1>Accepted tasks</h1>
+                </div>
+                {% if accepted_tasks %}
+                {%for task in accepted_tasks%}
+                <div class="col-md-11 p-3 p-md-2 bg-light border border-white" style="margin: 20px;">
+                    {% if task["gender"] == "Male" %}
+                    <div style="text-align: center; width: 100%;"> <img src="{{ url_for('static',filename='images/grandpa.png') }}" width="50%"></div>
+                    {% else %}
+                    <div style="text-align: center; width: 100%;"><img src="{{ url_for('static',filename='images/grandma.png') }}" width="50%"></div>
+                    {% endif %}
+                    <div style="text-align: center; width: 100%; margin-bottom: 15px;"> {{ task["user_first_name"] }} </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td> Task: </td>
+                                <td> {{ task["task"] }} </td>
+                            </tr>
+                            {% if task["emergency_level"] == 0 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightgreen; border-radius: 10px; text-align: center;">Low</div>
+                                </td>
+                            </tr>
+                            {% elif task["emergency_level"] == 1 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightsalmon; border-radius: 10px; text-align: center;">Medium</div>
+                                </td>
+                            </tr>
+                            {% elif task["emergency_level"] == 2 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightcoral; border-radius: 10px; text-align: center;">High!</div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td> Duration: </td>
+                                <td> {{ task["task_duration-in-minutes"] }}min </td>
+                            </tr>
+                            <tr>
+                                <td> Start: </td>
+                                <td> {{ task.date_time_start }} </td>
+                            </tr>
+                            <tr>
+                                <td> Address: </td>
+                                <td> {{ task.address }},  {{ task.zip_code }}, {{ task.city }}</td>
+                            </tr>
+                            <tr>
+                                <td> Phone: </td>
+                                <td> {{ task.phone }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="masthead-followup row m-0 border border-white" style="margin: 20px;  ">
+                        <div class="be_a_hero_button col-md-5" style="margin-bottom: 20px;"onclick="selectTask({{ task['_id'] }});">Contact</div>
+                        <div class="cancel_button col-md-5" style="margin-bottom: 20px;" onclick="selectTask({{ task['_id'] }});">Cancel</div>
+                        <div class="col-md-5"></div>
+                    </div>
+                    <div class="mission_complete" onclick="selectTask({{ task['_id'] }});">Mission Complete !</div>
+                </div>
+                {%endfor%}
+                {% else %}
+                <div style="margin: auto; text-align: center; width: 100%; margin: 10px;">Your are not helping anyone yet. Have a look below to be a Hero!</div>
+                {% endif %}
+                <div>
+                    <h1>People needing help around you</h1>
+                </div>
+                {%for task in tasks%}
+
+                <div class="col-md-5 p-3 p-md-2 bg-light border border-white" style="margin: 30px;">
+                    {% if task["gender"] == "Male" %}
+                    <div style="text-align: center; width: 100%;"> <img src="{{ url_for('static',filename='images/grandpa.png') }}" width="50%"></div>
+                    {% else %}
+                    <div style="text-align: center; width: 100%;"><img src="{{ url_for('static',filename='images/grandma.png') }}" width="50%"></div>
+                    {% endif %}
+                    <div style="text-align: center; width: 100%; margin-bottom: 15px;"> {{ task["user_first_name"] }} </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td> Task: </td>
+                                <td> {{ task["task"] }} </td>
+                            </tr>
+                            {% if task["emergency_level"] == 0 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightgreen; border-radius: 10px; text-align: center;">Low</div>
+                                </td>
+                            </tr>
+                            {% elif task["emergency_level"] == 1 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightsalmon; border-radius: 10px; text-align: center;">Medium</div>
+                                </td>
+                            </tr>
+                            {% elif task["emergency_level"] == 2 %}
+                            <tr>
+                                <td> Urgency: </td>
+                                <td>
+                                    <div style="width: 50%; padding: 5px; background-color: lightcoral; border-radius: 10px; text-align: center;">High!</div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td> Duration: </td>
+                                <td> {{ task["task_duration-in-minutes"] }}min </td>
+                            </tr>
+                            <tr>
+                                <td> Start: </td>
+                                <td> {{ task.date_time_start }} </td>
+                            </tr>
+                            <tr>
+                                <td> Distance: </td>
+                                <td> {{ task.distance }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form class="login100-form validate-form" target="_self" method="post" style="width: 100%; text-align: center;">
+                        <input value="{{ task['_id'] }}" name="_id" hidden>
+                        <div></div>
+                        <button class="be_a_hero_button" type="submit">Be a hero!</button>
+                    </form>
+                </div>
+
+                {%endfor%}
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
 
 
-	
 
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/animsition/js/animsition.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/animsition/js/animsition.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/bootstrap/js/popper.js"></script>
-	<script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/bootstrap/js/popper.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/bootstrap/js/bootstrap.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/select2/select2.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/select2/select2.min.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/daterangepicker/moment.min.js"></script>
-	<script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/moment.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/daterangepicker/daterangepicker.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/vendor/countdowntime/countdowntime.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='vendor/countdowntime/countdowntime.js')}}"></script>
-<!--===============================================================================================-->
-	<script src="../static/js/dashboard.js"></script>
+    <!--===============================================================================================-->
+    <script src="../static/js/dashboard.js"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='js/dashboard.js')}}"></script>
 
-</body>
-</html>
+</body></html>

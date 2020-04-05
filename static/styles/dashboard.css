@@ -1,0 +1,47 @@
+.be_a_hero_button{
+    width: 45%; 
+    padding: 10px; 
+    background-color: lightgreen; 
+    text-align: center;
+    border-radius: 5px; 
+    margin:auto;
+    font-size: 15px;
+    transition: all .2s ease-in-out; 
+}
+
+.be_a_hero_button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.cancel_button{
+    width: 45%; 
+    padding: 10px; 
+    background-color: lightcoral; 
+    text-align: center;
+    border-radius: 5px; 
+    margin:auto;
+    font-size: 15px;
+    transition: all .2s ease-in-out; 
+}
+.cancel_button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.mission_complete{
+    width: 45%; 
+    padding: 10px; 
+    background-color: lightyellow; 
+    text-align: center;
+    border-radius: 5px; 
+    margin:auto;
+
+    font-size: 15px;
+    transition: all .2s ease-in-out; 
+}
+
+.mission_complete:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}

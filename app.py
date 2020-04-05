@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from bson import ObjectId
 from flask import Flask, session, render_template, redirect, url_for
 from flask_pymongo import PyMongo, request
 from cryptography.fernet import Fernet
@@ -7,7 +8,7 @@ from datetime import datetime
 from flask_simple_geoip import SimpleGeoIP
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
-
+import random
 
 app = Flask("Company Explorer")
 app.secret_key = os.environ["MONGO_KEY_VOLUNTEER"]
@@ -56,11 +57,14 @@ def login():
             if tmp_user["email"] == data["email"]:
                 user = tmp_user
         if user is not None:
-            #db_pass = f.decrypt(user["pass"]).decode("utf-8")
+            # db_pass = f.decrypt(user["pass"]).decode("utf-8")
             db_pass = user["password"]
             if db_pass == data["pass"]:
                 session["USER"] = user["email"]
+                session["FIRST_NAME"] = user["first_name"]
                 session["LOCALIZATION"] = " ".join([user["address"], str(user["zip_code"]), user["city"]])
+                session["ZIP_CODE"] = user["zip_code"]
+                session["CITY"] = user["city"]
                 session.new = True
                 return redirect(url_for("dashboard"))
             else:
@@ -111,31 +115,58 @@ def register():
             data["last_connection"] = datetime.now()
             mongo.db.users.insert_one(data)
             session["USER"] = data["email"]
-            session["LOCALIZATION"] = " ".join([data["address"], data["zip_code"], data["city"]])
+            session["FIRST_NAME"] = data["first_name"]
+            session["LOCALIZATION"] = " ".join([data["address"], str(data["zip_code"]), data["city"]])
+            session["ZIP_CODE"] = data["zip_code"]
+            session["CITY"] = data["city"]
             session.new = True
             return redirect(url_for("homepage"))
         else:
             return render_template("register.html", error_signup="Email already in database. Try signing in")
 
-@app.route('/dashboard', methods=['GET'])
+
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     global mongo
     if is_user_connected():
-        tasks = list(mongo.db.tasks.find())
+        tasks = list(mongo.db.tasks.find({"city": session["CITY"]}))
+        current_user = mongo.db.users.find_one({"email": session["USER"]})
+
+        geolocator = Nominatim(timeout=3)
+        location_user = geolocator.geocode(session["LOCALIZATION"])
+        if request.method == 'POST':
+            data = request.form.to_dict(flat=True)
+            id = ObjectId(data["_id"])
+            task = mongo.db.tasks.find_one({"_id": id})
+            task["volunteer_id"] = session["USER"]
+            mongo.db.tasks.find_one_and_replace({"_id": id}, task)
+            if "accepted_tasks" not in current_user:
+                current_user["accepted_tasks"] = []
+            current_user["accepted_tasks"].append(task)
+            mongo.db.users.find_one_and_replace({"email": session["USER"]}, current_user)
         for task in tasks:
-            geolocator = Nominatim()
-            location_user = geolocator.geocode(session["LOCALIZATION"])
-            location_task = geolocator.geocode(task["localization"])
-            task["distance"] = geodesic((location_user.latitude, location_user.longitude),
-                                        (location_task.latitude, location_task.longitude)).kilometers
-        return render_template("dashboard.html", tasks=tasks)
+            location_task = geolocator.geocode(" ".join([task["address"], str(task["zip_code"]), task["city"]]))
+            if location_task is not None:
+                task["distance"] = "{:0.2f}".format(geodesic((location_user.latitude, location_user.longitude),
+                                                             (location_task.latitude,
+                                                              location_task.longitude)).kilometers) + "km"
+            else:
+                task["distance"] = str(task["zip_code"]) + "(zip code)"
+
+        accepted_tasks = []
+        if "accepted_tasks" in current_user and len(current_user["accepted_tasks"]) > 0:
+            accepted_tasks = current_user["accepted_tasks"]
+        return render_template("dashboard.html", tasks=tasks, first_name=session["FIRST_NAME"],
+                               accepted_tasks=accepted_tasks)
     else:
         return redirect(url_for("login"))
 
+
 @app.route('/map', methods=['GET'])
-def map():    
+def map():
     global mongo
     return render_template("map.html")
+
 
 if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
