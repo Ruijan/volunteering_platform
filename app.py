@@ -11,6 +11,8 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import random
 
+from reccomendation_system import recommend_task
+
 app = Flask("Company Explorer")
 app.secret_key = os.environ["MONGO_KEY_VOLUNTEER"]
 global pymongo_connected
@@ -36,10 +38,7 @@ def is_user_connected():
 
 @app.route('/')
 def homepage():
-    if is_user_connected():
-        return ""
-    else:
-        return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -132,10 +131,8 @@ def dashboard():
     if is_user_connected():
         current_user = mongo.db.users.find_one({"email": session["USER"]})
         if current_user["member_type"] == "Volunteer":
-            tasks = list(mongo.db.tasks.find({"city": session["CITY"]}).limit(10))
-
-            geolocator = Nominatim(timeout=3)
-            location_user = geolocator.geocode(session["LOCALIZATION"])
+            tasks = list(mongo.db.tasks.find({"city": session["CITY"]}))
+            tasks_sorted_by_distance = recommend_task(current_user, tasks)
             if request.method == 'POST':
                 data = request.form.to_dict(flat=True)
                 id = ObjectId(data["_id"])
@@ -147,14 +144,8 @@ def dashboard():
                     current_user["accepted_tasks"] = []
                 current_user["accepted_tasks"].append(task)
                 mongo.db.users.find_one_and_replace({"email": session["USER"]}, current_user)
-            for task in tasks:
-                location_task = geolocator.geocode(" ".join([task["address"], str(task["zip_code"]), task["city"]]))
-                if location_task is not None:
-                    task["distance"] = "{:0.2f}".format(geodesic((location_user.latitude, location_user.longitude),
-                                                                 (location_task.latitude,
-                                                                  location_task.longitude)).kilometers) + "km"
-                else:
-                    task["distance"] = str(task["zip_code"]) + "(zip code)"
+            for task in tasks_sorted_by_distance:
+                task["distance"] = "{:0.2f}".format(task["distance"]) + "km"
 
             accepted_tasks = []
             if "accepted_tasks" in current_user and len(current_user["accepted_tasks"]) > 0:
@@ -179,8 +170,8 @@ def dashboard():
                                                "method='post' style='width: 100%; text-align: center;'>"
                                                "<input value='" + str(task['_id']) + "' name='_id' hidden>"
                                                                                      "<button class='be_a_hero_button' style='width:100%;' type='submit'>Be a hero!</button></form>"}}
-                for task in tasks]
-            return render_template("dashboard.html", tasks=tasks, first_name=session["FIRST_NAME"],
+                for task in tasks_sorted_by_distance]
+            return render_template("dashboard.html", tasks=tasks_sorted_by_distance, first_name=session["FIRST_NAME"],
                                    accepted_tasks=accepted_tasks, feature_tasks=feature_tasks)
         elif current_user["member_type"] == "Need":
 
