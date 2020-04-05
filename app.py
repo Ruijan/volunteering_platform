@@ -178,6 +178,11 @@ def map():
     global mongo
     return render_template("map.html")
 
+@app.route('/choose_volunteer', methods=['GET']) 
+def choose_volunteer():
+    global mongo
+    return render_template("choose_volunteer.html")
+
 @app.route('/add-task', methods=['GET'])
 def add_task():
     skills = ["Housework", "House cleaning", "Grocery shopping", "Dog walking", "Call check", "Medication",
