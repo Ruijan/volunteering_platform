@@ -129,35 +129,46 @@ def register():
 def dashboard():
     global mongo
     if is_user_connected():
-        tasks = list(mongo.db.tasks.find({"city": session["CITY"]}))
         current_user = mongo.db.users.find_one({"email": session["USER"]})
+        if current_user["member_type"] == "Volunteer":
+            tasks = list(mongo.db.tasks.find({"city": session["CITY"]}))
 
-        geolocator = Nominatim(timeout=3)
-        location_user = geolocator.geocode(session["LOCALIZATION"])
-        if request.method == 'POST':
-            data = request.form.to_dict(flat=True)
-            id = ObjectId(data["_id"])
-            task = mongo.db.tasks.find_one({"_id": id})
-            task["volunteer_id"] = session["USER"]
-            mongo.db.tasks.find_one_and_replace({"_id": id}, task)
-            if "accepted_tasks" not in current_user:
-                current_user["accepted_tasks"] = []
-            current_user["accepted_tasks"].append(task)
-            mongo.db.users.find_one_and_replace({"email": session["USER"]}, current_user)
-        for task in tasks:
-            location_task = geolocator.geocode(" ".join([task["address"], str(task["zip_code"]), task["city"]]))
-            if location_task is not None:
-                task["distance"] = "{:0.2f}".format(geodesic((location_user.latitude, location_user.longitude),
-                                                             (location_task.latitude,
-                                                              location_task.longitude)).kilometers) + "km"
-            else:
-                task["distance"] = str(task["zip_code"]) + "(zip code)"
+            geolocator = Nominatim(timeout=3)
+            location_user = geolocator.geocode(session["LOCALIZATION"])
+            if request.method == 'POST':
+                data = request.form.to_dict(flat=True)
+                id = ObjectId(data["_id"])
+                task = mongo.db.tasks.find_one({"_id": id})
+                task["volunteer_id"] = session["USER"]
+                task["status"] = 1
+                mongo.db.tasks.find_one_and_replace({"_id": id}, task)
+                if "accepted_tasks" not in current_user:
+                    current_user["accepted_tasks"] = []
+                current_user["accepted_tasks"].append(task)
+                mongo.db.users.find_one_and_replace({"email": session["USER"]}, current_user)
+            for task in tasks:
+                location_task = geolocator.geocode(" ".join([task["address"], str(task["zip_code"]), task["city"]]))
+                if location_task is not None:
+                    task["distance"] = "{:0.2f}".format(geodesic((location_user.latitude, location_user.longitude),
+                                                                 (location_task.latitude,
+                                                                  location_task.longitude)).kilometers) + "km"
+                else:
+                    task["distance"] = str(task["zip_code"]) + "(zip code)"
 
-        accepted_tasks = []
-        if "accepted_tasks" in current_user and len(current_user["accepted_tasks"]) > 0:
-            accepted_tasks = current_user["accepted_tasks"]
-        return render_template("dashboard.html", tasks=tasks, first_name=session["FIRST_NAME"],
-                               accepted_tasks=accepted_tasks)
+            accepted_tasks = []
+            if "accepted_tasks" in current_user and len(current_user["accepted_tasks"]) > 0:
+                accepted_tasks = current_user["accepted_tasks"]
+            for task in accepted_tasks:
+                task["status"] = "On Going" if task["status"] == 1 else "Complete"
+            return render_template("dashboard.html", tasks=tasks, first_name=session["FIRST_NAME"],
+                                   accepted_tasks=accepted_tasks)
+        elif current_user["member_type"] == "Need":
+
+            accepted_tasks = list(mongo.db.tasks.find({"user_id": current_user["_id"]}))
+            for task in accepted_tasks:
+                task["status"] = "On Going" if task["status"] == 1 else "Complete"
+            return render_template("dashboard-need.html", first_name=session["FIRST_NAME"],
+                                   accepted_tasks=accepted_tasks, gender=current_user["gender"])
     else:
         return redirect(url_for("login"))
 

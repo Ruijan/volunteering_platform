@@ -1,47 +1,61 @@
-.be_a_hero_button{
-    width: 45%; 
-    padding: 10px; 
-    background-color: lightgreen; 
+.be_a_hero_button {
+    width: 45%;
+    padding: 10px;
+    background-color: lightgreen;
     text-align: center;
-    border-radius: 5px; 
-    margin:auto;
+    border-radius: 5px;
+    margin: auto;
     font-size: 15px;
-    transition: all .2s ease-in-out; 
+    transition: all .2s ease-in-out;
 }
 
-.be_a_hero_button:hover{
+.be_a_hero_button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
-.cancel_button{
-    width: 45%; 
-    padding: 10px; 
-    background-color: lightcoral; 
+.cancel_button {
+    width: 45%;
+    padding: 10px;
+    background-color: lightcoral;
     text-align: center;
-    border-radius: 5px; 
-    margin:auto;
+    border-radius: 5px;
+    margin: auto;
     font-size: 15px;
-    transition: all .2s ease-in-out; 
+    transition: all .2s ease-in-out;
 }
-.cancel_button:hover{
+
+.cancel_button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
-.mission_complete{
-    width: 45%; 
-    padding: 10px; 
-    background-color: lightyellow; 
+.mission_complete {
+    width: 45%;
+    padding: 10px;
+    background-color: lightyellow;
     text-align: center;
-    border-radius: 5px; 
-    margin:auto;
+    border-radius: 5px;
+    margin: auto;
 
     font-size: 15px;
-    transition: all .2s ease-in-out; 
+    transition: all .2s ease-in-out;
 }
 
-.mission_complete:hover{
+.mission_complete:hover {
     cursor: pointer;
     transform: scale(1.1);
+}
+
+.request_help_button {
+    background-color: lightgreen;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.request_help_button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all .2s ease-in-out;
 }
