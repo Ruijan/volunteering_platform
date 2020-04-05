@@ -168,7 +168,7 @@ def dashboard():
             for task in accepted_tasks:
                 task["status"] = "On Going" if task["status"] == 1 else "Complete"
             return render_template("dashboard-need.html", first_name=session["FIRST_NAME"],
-                                   accepted_tasks=accepted_tasks)
+                                   accepted_tasks=accepted_tasks, gender=current_user["gender"])
     else:
         return redirect(url_for("login"))
 

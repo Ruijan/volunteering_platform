@@ -47,7 +47,7 @@
 
         <div class="collapse navbar-collapse te" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link font-weight-bold" href="#">Home</a>
                 </li>
                 <li class="nav-item active">
@@ -67,7 +67,11 @@
 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown" style="margin-right: 15px;">
-                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/user.png') }}" height="50"></a>
+                        {% if gender == "Male" %}
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/grandpa.png') }}" height="50"></a>
+                        {% else %}
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"> <img src="{{ url_for('static',filename='images/grandma.png') }}" height="50"></a>
+                        {% endif%}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#" onclick="disconnect();">Log out</a>
                         </div>
